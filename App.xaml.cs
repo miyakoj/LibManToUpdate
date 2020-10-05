@@ -13,5 +13,6 @@ namespace LibmanToUpdate
     /// </summary>
     public partial class App : Application
     {
+        public static string LogFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt");
     }
 }

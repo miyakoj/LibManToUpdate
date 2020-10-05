@@ -5,26 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibmanToUpdate"
         mc:Ignorable="d"
-        Title="Libman Update Checker" Width="600" Height="470" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Libman Update Checker" Width="600" Height="500" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <StackPanel>
         <Label x:Name="instructions" Width="Auto" Margin="10" Padding="0,0,0,0">
             <AccessText TextWrapping="Wrap" FontFamily="Sans-Serif" FontSize="14">
-                Choose a libman.json file and your client libraries will be checked for updates. Click the results to save them.
+                Choose a libman.json file and your client libraries will be checked for updates. Double click the results to save them.
             </AccessText>
         </Label>
 
         <WrapPanel Width="Auto" Margin="10">
-            <TextBox x:Name="inputFileField" Text="TextBox" TextWrapping="NoWrap" Width="495" Height="25" Margin="0,0,10,0" 
-                     VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Sans-Serif" FontSize="14" />
+            <TextBox x:Name="inputFileField" TextWrapping="NoWrap" Width="479" Height="25" Margin="0,0,10,0" IsEnabled="False"
+                    FontFamily="Sans-Serif" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
             <Button x:Name="inputFileButton" Width="75" Height="25" FontFamily="Sans-Serif" FontSize="14" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Content="Browse" Click="inputFileButton_Click"/>
+                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Browse" Click="inputFileButton_Click"/>
         </WrapPanel>
 
         <TextBox x:Name="librariesToUpdate" Width="Auto" Height="300" Margin="10" FontFamily="Sans-Serif" FontSize="14" 
-                 Text="{Binding Path=LibrariesToUpdate}" TextWrapping="Wrap" IsEnabled="False" TextChanged="librariesToUpdate_TextChanged" />
+                 Text="{Binding Path=LibrariesToUpdate}" TextWrapping="Wrap" IsEnabled="False" 
+                 MouseDoubleClick="librariesToUpdate_DoubleClick" />
 
-        <ProgressBar Width="Auto" Height="20" Margin="10" x:Name="progressBar1">
-        </ProgressBar>
+        <ProgressBar x:Name="progressBar1" Width="Auto" Height="20" Margin="10" Minimum="0" Maximum="100" IsIndeterminate="False" />
     </StackPanel>
 </Window>

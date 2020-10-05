@@ -4,21 +4,23 @@ using System.Text;
 
 namespace LibmanToUpdate
 {
-    class LibManEssentials
+    class LibManConfig
     {
+        public string Version {get; set;}
         public string DefaultProvider {get; set;}
-        public List<Library> Libraries {get; set;}
+        public string DefaultDestination {get; set;}
+        public List<LibraryModel> Libraries {get; set;}
     }
 
-    class Library {
-        private string Name {get;}
-        private string Version {get;}
-        private string Provider {get;}
+    class LibraryModel {
+        public string Library {get; set;}
+        public string Provider {get; set;}
+        public string Destination {get; set;}
+        public List<string> Files {get; set;}
+    }
 
-        public Library(string name, string version, string provider=null) {
-            Name = name;
-            Version = version;
-            Provider = provider;
-        }
+    class LibraryUpdateData {
+        public string Library {get; set;}
+        public string MostRecentVersion {get; set;}
     }
 }
