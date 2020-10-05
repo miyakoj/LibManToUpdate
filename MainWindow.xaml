@@ -1,0 +1,30 @@
+﻿<Window x:Class="LibmanToUpdate.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LibmanToUpdate"
+        mc:Ignorable="d"
+        Title="Libman Update Checker" Width="600" Height="470" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+
+    <StackPanel>
+        <Label x:Name="instructions" Width="Auto" Margin="10" Padding="0,0,0,0">
+            <AccessText TextWrapping="Wrap" FontFamily="Sans-Serif" FontSize="14">
+                Choose a libman.json file and your client libraries will be checked for updates. Click the results to save them.
+            </AccessText>
+        </Label>
+
+        <WrapPanel Width="Auto" Margin="10">
+            <TextBox x:Name="inputFileField" Text="TextBox" TextWrapping="NoWrap" Width="495" Height="25" Margin="0,0,10,0" 
+                     VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Sans-Serif" FontSize="14" />
+            <Button x:Name="inputFileButton" Width="75" Height="25" FontFamily="Sans-Serif" FontSize="14" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Content="Browse" Click="inputFileButton_Click"/>
+        </WrapPanel>
+
+        <TextBox x:Name="librariesToUpdate" Width="Auto" Height="300" Margin="10" FontFamily="Sans-Serif" FontSize="14" 
+                 Text="{Binding Path=LibrariesToUpdate}" TextWrapping="Wrap" IsEnabled="False" TextChanged="librariesToUpdate_TextChanged" />
+
+        <ProgressBar Width="Auto" Height="20" Margin="10" x:Name="progressBar1">
+        </ProgressBar>
+    </StackPanel>
+</Window>
