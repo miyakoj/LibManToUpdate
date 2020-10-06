@@ -1,30 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
 using RestSharp;
 
 namespace LibmanToUpdate
 {
     static class CDNService
     {
-        private const string cdnjsEndpoint = "https://api.cdnjs.com/libraries/";
-        private const string jsDelivrEndpoint = "https://data.jsdelivr.com/v1/package/npm/";
-        private const string unpkgEndpoint = "https://unpkg.com/";
+        private const string cdnjsEndpoint = "https://api.cdnjs.com/libraries/{0}";
+        private const string jsDelivrEndpoint = "https://data.jsdelivr.com/v1/package/npm/{0}";
+        private const string unpkgEndpoint = "https://unpkg.com/{0}";
+        private static RestClient client;
+
+        static CDNService () {
+            client = new RestClient();
+            client.ThrowOnAnyError = true;
+        }
 
         public static LibraryUpdateData CheckLibrary(string provider, string library) {
-            var client = new RestClient();
-            client.ThrowOnAnyError = true;
-            string endpoint = string.Empty;
+            string endpoint;
+
+            return null;
 
             if (provider.Equals("cdnjs")) {
-                endpoint = cdnjsEndpoint + library;
+                endpoint = string.Format(cdnjsEndpoint, library);
             }
             else if (provider.Equals("jsdelivr")) {
-                endpoint = jsDelivrEndpoint + library;
+                endpoint = string.Format(jsDelivrEndpoint, library);
             }
             else if (provider.Equals("unpkg")) {
-                endpoint = unpkgEndpoint + library;
+                endpoint = string.Format(unpkgEndpoint, library);
+            }
+            else {
+                System.IO.File.WriteAllText(App.LogFile, "Unknown provider " + provider);
+                throw new ArgumentException("Unknown provider.");
             }
 
             try {
@@ -32,7 +39,7 @@ namespace LibmanToUpdate
                 var response = client.Execute(request);
 
                 if (!response.IsSuccessful) {
-                    return null;
+                    throw new System.Net.Http.HttpRequestException(response.ErrorMessage);
                 }
 
                 string version = string.Empty;
@@ -41,7 +48,6 @@ namespace LibmanToUpdate
                     // all providers with an API
                     var parsedResponse = SimpleJson.DeserializeObject(response.Content);
                     JsonObject jsonObject = (JsonObject)parsedResponse;
-                    version = string.Empty;
 
                     if (provider.Equals("cdnjs")) {
                         version = jsonObject["version"].ToString();
@@ -51,11 +57,14 @@ namespace LibmanToUpdate
                         version = tags["latest"].ToString();
                     }
                 }
-                else if (provider.Equals("unpkg")) {
-                    Uri responseUri = response.ResponseUri;
-                    string[] versionTempArray = responseUri.Segments[1].Split("@");
-                    string versionTemp = versionTempArray[1].ToString();
-                    version = versionTemp.Remove(versionTemp.Length-1);
+                else {
+                    // all providers without an API
+                    if (provider.Equals("unpkg")) {
+                        Uri responseUri = response.ResponseUri;
+                        string[] versionTempArray = responseUri.Segments[1].Split("@");
+                        string versionTemp = versionTempArray[1].ToString();
+                        version = versionTemp.Remove(versionTemp.Length-1);
+                    }
                 }
 
                 return new LibraryUpdateData {

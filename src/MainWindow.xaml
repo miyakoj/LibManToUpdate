@@ -5,26 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibmanToUpdate"
         mc:Ignorable="d"
-        Title="Libman Update Checker" Width="600" Height="500" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="LibMan Update Checker" Width="600" Height="620" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
 
     <StackPanel>
         <Label x:Name="instructions" Width="Auto" Margin="10" Padding="0,0,0,0">
             <AccessText TextWrapping="Wrap" FontFamily="Sans-Serif" FontSize="14">
-                Choose a libman.json file and your client libraries will be checked for updates. Double click the results to save them.
+                Choose a libman.json file and your client libraries will be checked for updates. Double click the result box to save them.
             </AccessText>
         </Label>
 
         <WrapPanel Width="Auto" Margin="10">
-            <TextBox x:Name="inputFileField" TextWrapping="NoWrap" Width="479" Height="25" Margin="0,0,10,0" IsEnabled="False"
+            <TextBox x:Name="inputFileField" TextWrapping="NoWrap" Width="479" Height="25" Margin="0,0,10,0" IsEnabled="False" IsReadOnly="True"
                     FontFamily="Sans-Serif" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
             <Button x:Name="inputFileButton" Width="75" Height="25" FontFamily="Sans-Serif" FontSize="14" 
                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Browse" Click="inputFileButton_Click"/>
         </WrapPanel>
 
-        <TextBox x:Name="librariesToUpdate" Width="Auto" Height="300" Margin="10" FontFamily="Sans-Serif" FontSize="14" 
-                 Text="{Binding Path=LibrariesToUpdate}" TextWrapping="Wrap" IsEnabled="False" 
-                 MouseDoubleClick="librariesToUpdate_DoubleClick" />
+        <TextBox x:Name="errorBox" Width="Auto" Height="100" Margin="10" FontFamily="Sans-Serif" FontSize="12" 
+                  Background="LightGray" IsReadOnly="True" TextWrapping="Wrap" IsEnabled="False" />
 
-        <ProgressBar x:Name="progressBar1" Width="Auto" Height="20" Margin="10" Minimum="0" Maximum="100" IsIndeterminate="False" />
+        <TextBox x:Name="librariesWithUpdates" Width="Auto" Height="300" Margin="10" FontFamily="Sans-Serif" FontSize="14" 
+                 TextWrapping="Wrap" MouseDoubleClick="librariesWithUpdates_DoubleClick" />
+
+        <ProgressBar x:Name="progressBar" Width="Auto" Height="20" Margin="10" Minimum="0" Maximum="100" 
+                     Orientation="Horizontal" IsIndeterminate="False" />
     </StackPanel>
 </Window>

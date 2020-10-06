@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace LibmanToUpdate
 {
@@ -21,6 +19,7 @@ namespace LibmanToUpdate
 
     class LibraryUpdateData {
         public string Library {get; set;}
+        public string CurrentVersion {get; set;}
         public string MostRecentVersion {get; set;}
     }
 }

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibmanToUpdate", "LibmanToUpdate.csproj", "{1BFD83C9-C5E2-49E9-94EF-D6B53330CECC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibmanToUpdate", "src/LibmanToUpdate.csproj", "{1BFD83C9-C5E2-49E9-94EF-D6B53330CECC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
