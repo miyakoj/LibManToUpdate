@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using RestSharp;
 
 namespace LibmanToUpdate
@@ -19,6 +18,8 @@ namespace LibmanToUpdate
         public static LibraryUpdateData CheckLibrary(string provider, string library) {
             string endpoint;
 
+            return null;
+
             if (provider.Equals("cdnjs")) {
                 endpoint = string.Format(cdnjsEndpoint, library);
             }
@@ -29,8 +30,8 @@ namespace LibmanToUpdate
                 endpoint = string.Format(unpkgEndpoint, library);
             }
             else {
-                File.AppendAllText(App.LogFile, "Unknown provider " + provider + Environment.NewLine);
-                throw new ArgumentException("Unknown provider " + provider);
+                System.IO.File.WriteAllText(App.LogFile, "Unknown provider " + provider);
+                throw new ArgumentException("Unknown provider.");
             }
 
             try {
@@ -42,11 +43,10 @@ namespace LibmanToUpdate
                 }
 
                 string version = string.Empty;
-                object parsedResponse;
-                bool parsedFlag = SimpleJson.TryDeserializeObject(response.Content, out parsedResponse);
 
-                if (parsedFlag) {
+                if (!provider.Equals("unpkg")) {
                     // all providers with an API
+                    var parsedResponse = SimpleJson.DeserializeObject(response.Content);
                     JsonObject jsonObject = (JsonObject)parsedResponse;
 
                     if (provider.Equals("cdnjs")) {
@@ -65,7 +65,7 @@ namespace LibmanToUpdate
                         string versionTemp = versionTempArray[1].ToString();
                         version = versionTemp.Remove(versionTemp.Length-1);
                     }
-                }                
+                }
 
                 return new LibraryUpdateData {
                     Library = library,
@@ -73,7 +73,7 @@ namespace LibmanToUpdate
                 };
             }
             catch (Exception err) {
-                File.AppendAllText(App.LogFile, err.ToString()+ Environment.NewLine);
+                System.IO.File.WriteAllText(App.LogFile, err.ToString());
                 return null;
             }
         }
