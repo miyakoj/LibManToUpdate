@@ -23,7 +23,7 @@ namespace LibmanToUpdate
                 File.Delete(App.LogFile);
             }
 
-            File.Create(App.LogFile);
+            File.WriteAllText(App.LogFile, "");
 
             InitializeComponent();
         }
@@ -102,46 +102,52 @@ namespace LibmanToUpdate
                                 }
                                 catch (Exception err)
                                 {
-                                    File.WriteAllText(App.LogFile, err.ToString());
+                                    File.AppendAllText(App.LogFile, err.ToString() + Environment.NewLine);
                                     combinedErrorMsg += errorMsg + Environment.NewLine;
                                 }
                             }
                             else
                             {
-                                File.WriteAllText(App.LogFile, errorMsg);
+                                File.AppendAllText(App.LogFile, errorMsg + Environment.NewLine);
                                 combinedErrorMsg += errorMsg + Environment.NewLine;
                             }
                         }
                         catch (Exception err)
                         {
-                            File.WriteAllText(App.LogFile, err.ToString());
+                            File.AppendAllText(App.LogFile, err.ToString() + Environment.NewLine);
                             combinedErrorMsg += errorMsg + Environment.NewLine;
                         }
 
                         counter++;
                         ((IProgress<double>)progress).Report(Math.Ceiling(((double)counter / (double)totalLibraries) * 100));
                     }
+
+                    // reset the progress bar value since the work is finished
+                    ((IProgress<double>)progress).Report(0);
                 });
 
-                if (string.IsNullOrEmpty(combinedErrorMsg)) {
-                    errorBox.Text += combinedErrorMsg;
-                }
-
-                // reset the progress bar value since the work is finished
-                progressBar.Value = 0;
-
-                if (LibrariesToUpdate.Count > 0) {
-                    librariesWithUpdates.Text = LibrariesToUpdate.Count + " client libraries with updates:" 
-                        + Environment.NewLine + Environment.NewLine;
-
-                    foreach (var library in LibrariesToUpdate) {
-                        librariesWithUpdates.Text += library.Library + " (" + library.CurrentVersion + " -> " 
-                            + library.MostRecentVersion + ")" + Environment.NewLine;
+                Dispatcher.Invoke(() =>
+                {
+                    if (!string.IsNullOrEmpty(combinedErrorMsg)) {
+                        errorBox.Text += combinedErrorMsg;                        
+                        return;
                     }
-                }
-                else {
-                    librariesWithUpdates.Text = "No client library updates were found.";
-                }
+
+                    if (LibrariesToUpdate.Count > 0) {
+                        librariesWithUpdates.Text = LibrariesToUpdate.Count + " client libraries with updates:" 
+                            + Environment.NewLine + Environment.NewLine;
+
+                        foreach (var library in LibrariesToUpdate) {
+                            librariesWithUpdates.Text += string.Format("{0} ({1} -> {2})",
+                                library.Library, library.CurrentVersion, library.MostRecentVersion) + Environment.NewLine;
+                            File.AppendAllText(App.LogFile, string.Format("{0} can be updated to {1}.\n", 
+                                library.Library, library.MostRecentVersion));
+                        }
+                    }
+                    else {
+                        librariesWithUpdates.Text = "No client library updates were found.";
+                    }
+                });
             }
             else {
                 errorBox.Text = "libman.json could not be loaded.";
@@ -161,7 +167,7 @@ namespace LibmanToUpdate
 
             if (saveFileDialog.ShowDialog() == true) {
                 string path = saveFileDialog.FileName;
-                File.WriteAllText(path, librariesWithUpdates.Text);
+                File.AppendAllText(path, librariesWithUpdates.Text);
             }
         }
     }

@@ -22,10 +22,11 @@
         </WrapPanel>
 
         <TextBox x:Name="errorBox" Width="Auto" Height="100" Margin="10" FontFamily="Sans-Serif" FontSize="12" 
-                  Background="LightGray" IsReadOnly="True" TextWrapping="Wrap" IsEnabled="False" />
+                  Background="LightGray" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
 
         <TextBox x:Name="librariesWithUpdates" Width="Auto" Height="300" Margin="10" FontFamily="Sans-Serif" FontSize="14" 
-                 TextWrapping="Wrap" MouseDoubleClick="librariesWithUpdates_DoubleClick" />
+                 TextWrapping="Wrap" IsReadOnly="True" MouseDoubleClick="librariesWithUpdates_DoubleClick"
+                 VerticalScrollBarVisibility="Auto" />
 
         <ProgressBar x:Name="progressBar" Width="Auto" Height="20" Margin="10" Minimum="0" Maximum="100" 
                      Orientation="Horizontal" IsIndeterminate="False" />

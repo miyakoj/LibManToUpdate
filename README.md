@@ -3,6 +3,8 @@ Written using .NET Core 3.1.
 
 [LibMan](https://docs.microsoft.com/en-us/aspnet/core/client-side/libman/) only allows you to update a single client library at a time so I decided to build a tool that checks all libraries in libman.json for updates. You'll still need to update each one manually but it should save some time since it will only list the libraries with updates.
 
+![LibManToUpdate screenshot](screenshot.png)
+
 ## CDNs supported
 CDNJS, jsDelivr, and Unpkg (same as LibMan).
 
@@ -19,7 +21,7 @@ Returns the latest version (may be stable or beta).
 Only Windows as of now.
 
 ## How to run
-Clone the repo and execute in your favorite IDE.
+Clone the repo and execute in your favorite IDE. You can also execute it from `\bin` after build.
 
 ## Other software used
 
