@@ -18,8 +18,6 @@ namespace LibmanToUpdate
         public static LibraryUpdateData CheckLibrary(string provider, string library) {
             string endpoint;
 
-            return null;
-
             if (provider.Equals("cdnjs")) {
                 endpoint = string.Format(cdnjsEndpoint, library);
             }
