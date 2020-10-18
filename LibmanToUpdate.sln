@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibmanToUpdate", "src/LibmanToUpdate.csproj", "{1BFD83C9-C5E2-49E9-94EF-D6B53330CECC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibmanToUpdate", "src\LibmanToUpdate.csproj", "{1BFD83C9-C5E2-49E9-94EF-D6B53330CECC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibmanToUpdate.Tests", "LibmanToUpdate.Tests\LibmanToUpdate.Tests.csproj", "{9CCDF5D6-423D-4530-836D-6D5FE7D59DAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1BFD83C9-C5E2-49E9-94EF-D6B53330CECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BFD83C9-C5E2-49E9-94EF-D6B53330CECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BFD83C9-C5E2-49E9-94EF-D6B53330CECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CCDF5D6-423D-4530-836D-6D5FE7D59DAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CCDF5D6-423D-4530-836D-6D5FE7D59DAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CCDF5D6-423D-4530-836D-6D5FE7D59DAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CCDF5D6-423D-4530-836D-6D5FE7D59DAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -44,7 +44,19 @@ namespace LibmanToUpdate
 			if (openFileDialog.ShowDialog() == true) {
                 inputFileField.Text = openFileDialog.FileName.Replace(@"\\", @"\");
                 string json = File.ReadAllText(openFileDialog.FileName);
-                LibManConfig libman = JsonConvert.DeserializeObject<LibManConfig>(json);
+                LibManConfig libman = null;
+                try {
+                    libman = JsonConvert.DeserializeObject<LibManConfig>(json);
+                }
+                catch(JsonSerializationException) {
+                    errorBox.Text = "Your libman.json is invalid.";
+                    return;
+                }
+                catch(JsonReaderException) {
+                    errorBox.Text = "Your json is invalid.";
+                    return;
+                }
+
                 int totalLibraries = libman.Libraries.Count;
                 int counter = 0;
 

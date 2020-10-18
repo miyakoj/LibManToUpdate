@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using RestSharp;
 
+[assembly: InternalsVisibleTo("LibmanToUpdate.Tests")]
 namespace LibmanToUpdate
 {
-    static class CDNService
+    internal static class CDNService
     {
         private const string cdnjsEndpoint = "https://api.cdnjs.com/libraries/{0}";
         private const string jsDelivrEndpoint = "https://data.jsdelivr.com/v1/package/npm/{0}";
@@ -15,7 +17,7 @@ namespace LibmanToUpdate
             client.ThrowOnAnyError = true;
         }
 
-        public static LibraryUpdateData CheckLibrary(string provider, string library) {
+        internal static LibraryUpdateData CheckLibrary(string provider, string library) {
             string endpoint;
 
             if (provider.Equals("cdnjs")) {

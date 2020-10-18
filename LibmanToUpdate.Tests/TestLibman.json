@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "defaultDestination": "wwwroot/lib",
+  "libraries": [
+    {
+      "library": "jquery@3.5.1",
+      "destination": "wwwroot/lib/jquery",
+      "files": [
+        "jquery.min.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "react@16.14.0",
+      "destination": "wwwroot/lib/react/",
+      "files": [
+        "umd/react.production.min.js"
+      ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "vue@2.6.12",
+      "destination": "wwwroot/lib/vue/",
+      "files": [
+        "dist/vue.min.js"
+      ]
+    }
+  ]
+}
